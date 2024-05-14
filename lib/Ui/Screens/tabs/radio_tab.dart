@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islami/Ui/utils/app_assets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islami/Ui/utils/app_localization_utils.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_theme.dart';
 
@@ -18,7 +18,7 @@ class RadioTab extends StatelessWidget {
           flex: 2,
           child:Column(
             children: [
-              Text(AppLocalizations.of(context)!.radioOfQuranKareem,style: AppTheme.mediumTitleTextStyle,),
+              Text(context.l10n.radioOfQuranKareem,style: AppTheme.mediumTitleTextStyle,),
               const SizedBox(height: 35),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:islami/Ui/utils/app_localization_utils.dart';
 import '../../../model/sura_details_args.dart';
 import '../../ahadith_details/ahadith_details.dart';
 import '../../utils/app_assets.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_theme.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class AhadethTab extends StatelessWidget {
@@ -19,7 +19,7 @@ class AhadethTab extends StatelessWidget {
           padding: EdgeInsets.all(6.0),
           child: Divider(color: AppColors.gold,thickness: 3),
         ),
-         Text(AppLocalizations.of(context)!.ahadith,style: AppTheme.mediumTitleTextStyle,),
+         Text(context.l10n.ahadith,style: AppTheme.mediumTitleTextStyle,),
         const Padding(
           padding: EdgeInsets.all(6.0),
           child: Divider(color: AppColors.gold,thickness: 3),

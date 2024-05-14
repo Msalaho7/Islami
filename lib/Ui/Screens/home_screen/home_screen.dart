@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islami/Ui/utils/app_assets.dart';
+import 'package:islami/Ui/utils/app_localization_utils.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_theme.dart';
 import '../tabs/ahadeth_tab.dart';
@@ -52,15 +53,15 @@ class _HomeScreenState extends State<HomeScreen> {
    selectedItemColor: AppColors.black,
    items: [
    buildBottomNavigationBarItem(AppAssets.iconQuran,
-       AppLocalizations.of(context)!.quran),
+       context.l10n.quran),
      buildBottomNavigationBarItem(AppAssets.iconHadeth,
-         AppLocalizations.of(context)!.hadeth),
+         context.l10n.hadeth),
      buildBottomNavigationBarItem(AppAssets.iconSebha,
-         AppLocalizations.of(context)!.sebha),
+         context.l10n.sebha),
      buildBottomNavigationBarItem(AppAssets.iconRadio,
-         AppLocalizations.of(context)!.radio),
+         context.l10n.radio),
      buildBottomNavigationBarItem(AppAssets.sebhaLogo,
-         AppLocalizations.of(context)!.settings),
+         context.l10n.settings),
    ],
    unselectedItemColor: AppColors.white,
    currentIndex: currentIndexSelected,
@@ -82,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
    },
  );
 
- BottomNavigationBarItem buildBottomNavigationBarItem(
+  BottomNavigationBarItem buildBottomNavigationBarItem(
      String path , String label,) {
    return BottomNavigationBarItem(icon: ImageIcon(AssetImage(path),
      size: 32,), label: label,);

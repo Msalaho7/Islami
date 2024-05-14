@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:islami/Ui/utils/app_localization_utils.dart';
 import '../../../model/sura_details_args.dart';
 import '../../sura_details/sura_details.dart';
 import '../../utils/app_assets.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/app_theme.dart';
 import '../../utils/constants.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class QuranTab extends StatelessWidget {
@@ -36,9 +36,9 @@ class QuranTab extends StatelessWidget {
             child: Divider(color: AppColors.gold,thickness: 3,),
           ),
            Row(children: [
-            Expanded(child: Text(AppLocalizations.of(context)!.verseNumber,textAlign: TextAlign.center,
+            Expanded(child:Text(context.l10n.verseNumber,textAlign: TextAlign.center,
                 style: AppTheme.mediumTitleTextStyle)),
-            Expanded(child: Text(AppLocalizations.of(context)!.suraName ,textAlign: TextAlign.center,
+            Expanded(child: Text(context.l10n.suraName,textAlign: TextAlign.center,
                 style: AppTheme.mediumTitleTextStyle)),
           ]),
           const Padding(
