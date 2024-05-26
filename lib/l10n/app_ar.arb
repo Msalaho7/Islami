@@ -10,5 +10,8 @@
   "hadeth": "الحديث",
   "sebha": "السبحة",
   "radio": "الراديو",
-  "settings": "الاعدادات"
+  "settings": "الاعدادات",
+  "darkMode": "الوضع الداكن",
+  "thanksGod": " الحمدلله",
+  "saveSettings" : "حفظ الاعدادات"
 }

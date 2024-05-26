@@ -10,5 +10,8 @@
   "hadeth": "Hadeth",
   "sebha": "Sebha",
   "radio": "Radio",
-  "settings": "Settings"
+  "settings": "Settings",
+  "darkMode": "Dark Mode",
+  "thanksGod": "Thanks God",
+  "saveSettings": "Save Settings"
 }

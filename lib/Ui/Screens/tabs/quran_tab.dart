@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:islami/Ui/utils/app_localization_utils.dart';
+import 'package:provider/provider.dart';
 import '../../../model/sura_details_args.dart';
+import '../../providers/theme_provider.dart';
 import '../../sura_details/sura_details.dart';
 import '../../utils/app_assets.dart';
-import '../../utils/app_colors.dart';
-import '../../utils/app_theme.dart';
 import '../../utils/constants.dart';
 
+class QuranTab extends StatefulWidget {
+   const QuranTab({Key? key}) : super(key: key);
 
-class QuranTab extends StatelessWidget {
-  const QuranTab({Key? key}) : super(key: key);
+  @override
+  State<QuranTab> createState() => _QuranTabState();
+}
+
+class _QuranTabState extends State<QuranTab> {
+  late ThemeProvider themeProvider;
 
   @override
   Widget build(BuildContext context) {
+    themeProvider =Provider.of(context);
     return Column(
       children: [
         Expanded(flex: 3,child: Center(child: Image.asset(AppAssets.mosq))),
         Expanded(flex: 7, child: Stack(
             children: [
               buildScreenContent(context),
-              const Center(child: VerticalDivider(color: AppColors.gold,
+              Center(child: VerticalDivider(color: themeProvider.themeColorGold,
                 thickness: 3,width: 5,indent: 6,))
             ],
           ),
@@ -31,20 +38,14 @@ class QuranTab extends StatelessWidget {
   Widget buildScreenContent(BuildContext context) {
     return Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.only(right: 6,left: 6),
-            child: Divider(color: AppColors.gold,thickness: 3,),
-          ),
+          Divider(color: themeProvider.themeColorGold, thickness: 3,),
            Row(children: [
             Expanded(child:Text(context.l10n.verseNumber,textAlign: TextAlign.center,
-                style: AppTheme.mediumTitleTextStyle)),
+                style: themeProvider.mediumTitleTextStyle)),
             Expanded(child: Text(context.l10n.suraName,textAlign: TextAlign.center,
-                style: AppTheme.mediumTitleTextStyle)),
+                style: themeProvider.mediumTitleTextStyle)),
           ]),
-          const Padding(
-            padding: EdgeInsets.only(right: 6,left: 6),
-            child: Divider(color: AppColors.gold,thickness: 3,),
-          ),
+          Divider(color: themeProvider.themeColorGold ,thickness: 3,),
           Expanded(flex: 7,child: buildListView())
         ],
       );
@@ -66,12 +67,12 @@ class QuranTab extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text("${Constant.versesNumber[index]}",
-                        style: AppTheme.regularTitleTextStyle,textAlign: TextAlign.center),
+                        style: themeProvider.regularTitleTextStyle,textAlign: TextAlign.center),
                   ),
 
                   Expanded(
                     child: Text(Constant.suraNames[index],
-                        style: AppTheme.regularTitleTextStyle,textAlign: TextAlign.center),
+                        style: themeProvider.regularTitleTextStyle,textAlign: TextAlign.center),
                   ),
                 ],
               ),

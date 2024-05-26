@@ -10,7 +10,11 @@ abstract class AppAssets {
   static const iconRadio = "assets/image/icon_radio.png";
   static const iconSebha = "assets/image/icon_sebha.png";
   static const radioImage = "assets/image/radio_image.png";
-  // static final  settingsIcon= "${const Icon(Icons.settings)}";
-  // static const  background = "assets/image/background.png";
-  // static const  background = "assets/image/background.png";
+  static const bodySebhaDark = "assets/image/body_sebha_dark.png";
+  static const headSebhaDark = "assets/image/head_sebha_dark.png";
+  static const backgroundDark = "assets/image/dark_bg.png";
+  static const musicLeft = "assets/image/music_left.png";
+  static const musicRight = "assets/image/music_right.png";
+  static const settings = "assets/image/settingIcon.png";
+  static const splashDark ="assets/image/splashDark.png";
 }
