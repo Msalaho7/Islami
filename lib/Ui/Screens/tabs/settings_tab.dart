@@ -22,9 +22,31 @@ class _SettingsTabState extends State<SettingsTab> {
   bool switchState = false;
 
   @override
+  void initState() {
+    super.initState();
+    loadSettingsFromFirebase();
+  }
+
+  Future<void> loadSettingsFromFirebase() async {
+    CollectionReference collectionOfSettings =
+    FirebaseFirestore.instance.collection("Islami Settings");
+    QuerySnapshot querySnapshot = await collectionOfSettings.get();
+    if (querySnapshot.docs.isNotEmpty) {
+      var data = querySnapshot.docs.first.data() as Map<String, dynamic>;
+      setState(() {
+        selectedLanguage = data["selectedLanguage"] ?? "en";
+        switchState = data["darkMode"] ?? false;
+        themeProvider.toggleTheme(switchState);
+        final languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
+        languageProvider.setCurrentLocale(selectedLanguage);
+      });
+    }
+  }
+  @override
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
-    themeProvider =Provider.of(context);
+    themeProvider = Provider.of(context);
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -38,29 +60,31 @@ class _SettingsTabState extends State<SettingsTab> {
           const SizedBox(height: 12),
           buildLanguageDropDownButton(languageProvider),
           const SizedBox(height: 45),
-          buildSwitch(themeProvider),
+          buildSwitch(),
           const SizedBox(height: 45),
           ElevatedButton(
-              onPressed: (){
+              onPressed: () {
                 addDataToFireBase();
               },
-              child:Text(context.l10n.saveSettings
-                ,style:themeProvider.mediumTitleTextStyle,)
-          ),
+              child: Text(
+                context.l10n.saveSettings,
+                style: themeProvider.mediumTitleTextStyle,
+              )),
         ],
       ),
     );
   }
+
   Widget buildLanguageDropDownButton(LanguageProvider languageProvider) {
     return DropdownButton<String>(
       value: selectedLanguage,
-      dropdownColor: Colors.grey,
+      dropdownColor: themeProvider.dropdownMenuItem,
       items: [
         DropdownMenuItem(
           value: "en",
           child: Text(
             "English",
-            style:themeProvider.mediumTitleTextStyle,
+            style: themeProvider.mediumTitleTextStyle,
           ),
         ),
         DropdownMenuItem(
@@ -73,13 +97,15 @@ class _SettingsTabState extends State<SettingsTab> {
       ],
       isExpanded: true,
       onChanged: (newValue) {
-        selectedLanguage = newValue!;
-        languageProvider.setCurrentLocale(selectedLanguage);
+        setState(() {
+          selectedLanguage = newValue!;
+          languageProvider.setCurrentLocale(selectedLanguage);
+        });
       },
     );
   }
 
-  Widget buildSwitch(ThemeProvider themeProvider) {
+  Widget buildSwitch() {
     return Row(
       children: [
         Text(
@@ -90,12 +116,12 @@ class _SettingsTabState extends State<SettingsTab> {
         Switch(
           inactiveThumbColor: AppColors.gold,
           inactiveTrackColor: AppColors.onGold,
-          activeColor: AppColors.onDarkBlue,
+          activeColor: const Color.fromARGB(255, 87, 88, 92),
           activeTrackColor: AppColors.darkBlue,
-          value:switchState,
+          value: switchState,
           onChanged: (newValue) {
             setState(() {
-              switchState =newValue;
+              switchState = newValue;
               themeProvider.toggleTheme(newValue);
             });
           },
@@ -103,11 +129,12 @@ class _SettingsTabState extends State<SettingsTab> {
       ],
     );
   }
+
   void addDataToFireBase() {
     CollectionReference collectionOfSettings =
     FirebaseFirestore.instance.collection("Islami Settings");
-    collectionOfSettings.doc().set({
-      "selectedLanguage":selectedLanguage,
-      "darkMode":switchState
-    });
-  }}
+    collectionOfSettings
+        .doc()
+        .set({"selectedLanguage": selectedLanguage, "darkMode": switchState});
+  }
+}

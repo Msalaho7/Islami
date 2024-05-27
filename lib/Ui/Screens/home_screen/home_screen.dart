@@ -52,14 +52,14 @@ class _HomeScreenState extends State<HomeScreen> {
       if (currentIndexSelected == 0) {
         body = const QuranTab();
       } else if (currentIndexSelected == 1) {
-        body = AhadethTab();
+        body = const AhadethTab();
       } else if (currentIndexSelected == 2) {
         body = const SebhaTab();
       } else if (currentIndexSelected == 3) {
         body = const RadioTab();
       } else {
-        body = SettingsTab(onSettingsChanged:
-            (String language, bool darkMode) {  },);
+        body = SettingsTab(
+          onSettingsChanged: (String language, bool darkMode) {});
       }
       setState(() {});
     },

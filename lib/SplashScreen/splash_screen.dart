@@ -4,7 +4,7 @@ import '../Ui/Screens/home_screen/home_screen.dart';
 import '../Ui/providers/theme_provider.dart';
 
 class SplashScreen extends StatefulWidget {
-  const  SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({Key? key}) : super(key: key);
   static const routeName = "splash";
 
   @override
@@ -12,19 +12,26 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late ThemeProvider themeProvider;
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(
+      const Duration(seconds: 7),
+      () {
+        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    themeProvider =Provider.of(context);
-    Future.delayed(
-        const Duration(seconds:2), ()
-    {Navigator.pushReplacementNamed(context, HomeScreen.routeName);}
-    );
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       body: Image.asset(
-         themeProvider.splashScreen,
+        themeProvider.splashScreen,
         fit: BoxFit.fill,
-        width: double.infinity, height:double.infinity,
+        width: double.infinity,
+        height: double.infinity,
       ),
     );
   }

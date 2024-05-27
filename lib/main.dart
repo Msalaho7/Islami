@@ -28,11 +28,13 @@ void main() async {
     ),
   );
 }
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   State<MyApp> createState() => _MyAppState();
 }
+
 class _MyAppState extends State<MyApp> {
   late ThemeProvider themeProvider;
   String selectedLanguage = "en";
@@ -60,7 +62,8 @@ class _MyAppState extends State<MyApp> {
         selectedLanguage = data["selectedLanguage"] ?? "en";
         switchState = data["darkMode"] ?? false;
         themeProvider.toggleTheme(switchState);
-        final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
+        final languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
         languageProvider.setCurrentLocale(selectedLanguage);
       });
     }
@@ -89,7 +92,7 @@ class _MyAppState extends State<MyApp> {
       title: "islami",
       initialRoute: SplashScreen.routeName,
       routes: {
-        SplashScreen.routeName : (_) => const SplashScreen(),
+        SplashScreen.routeName: (_) => const SplashScreen(),
         HomeScreen.routeName: (_) => const HomeScreen(),
         SuraDetails.routeName: (_) => const SuraDetails(),
         AhadithDetails.routeName: (_) => const AhadithDetails(),

@@ -6,26 +6,37 @@ import '../../utils/app_colors.dart';
 class AppScaffold extends StatelessWidget {
   final String? title;
   final Widget? bottomNavigation;
-  final Widget body ;
+  final Widget body;
   final AppBar? appBar;
 
-  const AppScaffold({Key? key,
-     this.title, this.bottomNavigation,
-    required this.body,  this.appBar,
+  const AppScaffold({
+    Key? key,
+    this.title,
+    this.bottomNavigation,
+    required this.body,
+    this.appBar,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider =Provider.of(context);
+    ThemeProvider themeProvider = Provider.of(context);
     return Container(
-        decoration:BoxDecoration(
-            image: DecorationImage(image:AssetImage(themeProvider.mainBackGround))),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fill,
+                image: AssetImage(themeProvider.mainBackGround)
+            )
+        ),
         child: Scaffold(
-          appBar: appBar ?? AppBar(
-            title: title != null ? Text(title!, style: themeProvider.mediumTitleTextStyle) : null,
-          ),
+          appBar: appBar ??
+              AppBar(
+                title: title != null
+                    ? Text(title!, style: themeProvider.mediumTitleTextStyle)
+                    : null,
+              ),
           backgroundColor: AppColors.transparent,
-          bottomNavigationBar:bottomNavigation,
-             body: body,));
+          bottomNavigationBar: bottomNavigation,
+          body: body,
+        ));
   }
 }
