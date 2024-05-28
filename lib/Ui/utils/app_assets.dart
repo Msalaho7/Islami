@@ -14,5 +14,5 @@ abstract class AppAssets {
   static const musicLeft = "assets/image/music_left.png";
   static const musicRight = "assets/image/music_right.png";
   static const settings = "assets/image/settingIcon.png";
-  static const splashDark ="assets/image/splashDark.png";
+  static const splashDark = "assets/image/splashDark.png";
 }
