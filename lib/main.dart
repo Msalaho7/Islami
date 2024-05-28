@@ -18,6 +18,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FirebaseFirestore.instance.disableNetwork();
+
   runApp(
     MultiProvider(
       providers: [
@@ -31,6 +32,7 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -55,9 +57,10 @@ class _MyAppState extends State<MyApp> {
   Future<void> loadSettingsFromFirebase() async {
     CollectionReference collectionOfSettings =
     FirebaseFirestore.instance.collection("Islami Settings");
-    QuerySnapshot querySnapshot = await collectionOfSettings.get();
-    if (querySnapshot.docs.isNotEmpty) {
-      var data = querySnapshot.docs.first.data() as Map<String, dynamic>;
+    DocumentSnapshot documentSnapshot =
+    await collectionOfSettings.doc("userSettings").get();
+    if (documentSnapshot.exists) {
+      var data = documentSnapshot.data() as Map<String, dynamic>;
       setState(() {
         selectedLanguage = data["selectedLanguage"] ?? "en";
         switchState = data["darkMode"] ?? false;

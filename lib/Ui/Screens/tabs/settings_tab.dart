@@ -12,6 +12,7 @@ class SettingsTab extends StatefulWidget {
 
   const SettingsTab({Key? key, required this.onSettingsChanged})
       : super(key: key);
+
   @override
   State<SettingsTab> createState() => _SettingsTabState();
 }
@@ -30,9 +31,10 @@ class _SettingsTabState extends State<SettingsTab> {
   Future<void> loadSettingsFromFirebase() async {
     CollectionReference collectionOfSettings =
     FirebaseFirestore.instance.collection("Islami Settings");
-    QuerySnapshot querySnapshot = await collectionOfSettings.get();
-    if (querySnapshot.docs.isNotEmpty) {
-      var data = querySnapshot.docs.first.data() as Map<String, dynamic>;
+    DocumentSnapshot documentSnapshot =
+    await collectionOfSettings.doc("userSettings").get();
+    if (documentSnapshot.exists) {
+      var data = documentSnapshot.data() as Map<String, dynamic>;
       setState(() {
         selectedLanguage = data["selectedLanguage"] ?? "en";
         switchState = data["darkMode"] ?? false;
@@ -43,6 +45,7 @@ class _SettingsTabState extends State<SettingsTab> {
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
@@ -61,15 +64,6 @@ class _SettingsTabState extends State<SettingsTab> {
           buildLanguageDropDownButton(languageProvider),
           const SizedBox(height: 45),
           buildSwitch(),
-          const SizedBox(height: 45),
-          ElevatedButton(
-              onPressed: () {
-                addDataToFireBase();
-              },
-              child: Text(
-                context.l10n.saveSettings,
-                style: themeProvider.mediumTitleTextStyle,
-              )),
         ],
       ),
     );
@@ -100,6 +94,7 @@ class _SettingsTabState extends State<SettingsTab> {
         setState(() {
           selectedLanguage = newValue!;
           languageProvider.setCurrentLocale(selectedLanguage);
+          saveSettingsToFirebase();
         });
       },
     );
@@ -123,6 +118,7 @@ class _SettingsTabState extends State<SettingsTab> {
             setState(() {
               switchState = newValue;
               themeProvider.toggleTheme(newValue);
+              saveSettingsToFirebase();
             });
           },
         ),
@@ -130,11 +126,12 @@ class _SettingsTabState extends State<SettingsTab> {
     );
   }
 
-  void addDataToFireBase() {
+  void saveSettingsToFirebase() {
     CollectionReference collectionOfSettings =
     FirebaseFirestore.instance.collection("Islami Settings");
-    collectionOfSettings
-        .doc()
-        .set({"selectedLanguage": selectedLanguage, "darkMode": switchState});
+    collectionOfSettings.doc("userSettings").set({
+      "selectedLanguage": selectedLanguage,
+      "darkMode": switchState,
+    });
   }
 }
